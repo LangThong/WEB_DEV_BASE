@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi"> // lang kiểu ngôn ngữ
+    <head>
+        <meta charset="UTF-8"> // charset kiểu mã hóa ký tự
+        <meta name="descripton" content="Trang HTML demo"> // name & context mô tả trang
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> // viewport giúp hiển thị tốt trên điện thoại
+        <title>Học HTML cơ bản</title>
+        <!-- Gắn CSS bên ngoài -->
+        <link rel="stylesheet" href="styles.css">
+        <!-- Viết Css Trực Tiếp -->
+        <style>
+            body {font-family: 'Times New Roman', Times, serif; background-color:black}
+            h1 {color:darkblue;}.hilight {color: red; font-weight: bold;}
+        </style>
+    </head>
+    <body>
+        <!-- Tiêu đề và đoạn văn bản -->
+        <h1 id="main-title" title="Đây là tiêu đề lớn">Chào mừng bạn đến với HTML</h1>
+        <p class="hilight">Đây là đoạn văn bản có class và style CSS.</p>
+        <p style="color: green;">Đây là đoạn văn bản có style inline.</p>
+        <hr>
+
+        <!-- Liên kết và hình ảnh -->
+        <a href="https://www.google.com/?hl=vi&zx=1760942516364&no_sw_cr=1" target="_blank" title="Đi tới Google">Tới google</a>
+        <br><br>
+        <img src="https://scontent.fsgn19-1.fna.fbcdn.net/v/t39.30808-1/300886879_193598209761480_4026272289615441772_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeEDDoUyctsr1zO2T9SkTKfSI5aOtmJ83XQjlo62YnzddMr_Z3A0cL-9BJKCSqoLd9XfO2qschPlldin-WztTg52&_nc_ohc=YQmLvXmEdsUQ7kNvwEj_2vZ&_nc_oc=Admle3ZALuKmvrznUONQmjN7tTZuVDJGW6CTUIBpesGzYiG3Cs76YyPiUoZ6dz-Ll1M&_nc_zt=24&_nc_ht=scontent.fsgn19-1.fna&_nc_gid=onWmvnMKgCvFCkgcJiqDgA&oh=00_AfdfBdlttOc8Rvg3CMpV529PuWqqJan3Kc9AznhNFYBfvw&oe=68FBBB2E" alt="Ảnh đại diện" width="200" height="200" title="Ảnh đại diện">
+        <hr>
+        
+        <!-- Danh Sách -->
+        <h2 style="color: darkred;">Danh sách các công nghệ:</h2>
+        <!-- mặc định là số 1 -->
+        <ol style="color: blue;" type="A" start="1"> 
+            <li>Html</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ol>
+        <ul style="color: blue;">
+            <li>React</li>
+            <li>Node.js</li>
+            <li>MongoDB</li>
+        </ul>
+        <hr>
+        <!-- Bảng dữ liệu -->
+        <h2 style="color: rgb(219, 237, 100); text-align: center;"  >Bảng điểm sinh viên: </h2>
+        <div >
+            <table style="color: blue;  margin: auto;" border="1" width="400">
+                <caption>Danh sách điểm sinh viên</caption>
+                <tr>
+                    <th>Họ và Tên</th>
+                    <th>Điểm</th>
+                </tr>
+                <tr>
+                    <td>Trần Thanh Thuận</td>
+                    <td>7.5</td>
+                </tr>
+                <tr>
+                    <td>Lăng Thống</td>
+                    <td>6.5</td>
+                </tr>
+            </table>
+        </div>
+        <!-- Cách nhúng JavaScript -->
+        <!-- Cánh 1: inline (Tực tiếp) -->
+         <button onclick="alert('Chào bạn!')" style="color: blue;">Nhấn vào tôi</button>
+         <br><br>
+         <!-- Cánh 2: internal (viết trong html) -->
+          <button id="myBtn">Cách 2 nhấn vào tôi</button>
+          <script>
+            document.getElementById("myBtn").onclick = function(){
+                alert("Chào bạn! Đây là cách 2.");
+            }
+          </script>
+          <!-- Cách 3 – External (tách ra file riêng) -->
+          <button id="btn">Click me</button>
+          <script src="script.js"></script>
+    </body>
+</html>
