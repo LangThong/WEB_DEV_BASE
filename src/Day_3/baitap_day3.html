@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3</title>
+</head>
+<body>
+    <h2>Bài 1: Kiểm tra số chẵn lẻ</h2>
+    <label>Nhập 1 số kiểm tra chẵn lẻ: </label>
+    <input type="number" id="number" name="number">
+    <button id="btnKiemTra">Kiểm tra</button>
+    <p id="resultKiemTra"></p>
+    <hr>
+    <h2>Bài 2: Phân loại học sinh</h2>
+    <label>Nhập điểm của bạn: </label>
+    <input type="number" id="diemHocSinh" name="diemHocSinh" min="0" max="10" step="0.1">
+    <button id="btnPhanLoai">Phân Loại</button>
+    <p id="errorPhanLoai" style="color: red;"></p>
+    <p id="resultPhanLoai"></p>
+    <hr>
+    <h2>Bài 3: Đổi màu nền theo lựa chọn</h2>
+    <label for="chonMau">Chọn màu nền: </label>
+    <select id="chonMau">
+        <option value="">---Chọn màu---</option>
+        <option value="red">Đỏ</option>
+        <option value="green">Xanh lá</option>
+        <option value="blue">Xanh dương</option>
+    </select>
+    <button id="btnDoiMau">Đổi màu</button>
+    <p id="errorDoiMau"></p>
+    <hr>
+    <h2>Bài 4: Giải phương trình bậc 1</h2>
+    <label>Nhập a: </label>
+    <input type="number" id="numberA" placeholder="Nhập a">
+    <br><br>
+    <label>Nhập b: </label>
+    <input type="number" id="numberB" placeholder="Nhập b">
+    <br><br>
+    <button id="btnTinhNghiem">Tính Nghiệm</button>
+    <p id="resultTinhNghiem"></p>
+    <script src="main.js"></script>
+</body>
+</html>
