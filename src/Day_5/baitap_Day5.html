@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="card">
+            <h2>Giải phương trình bậc 2 (ax² + bx + c = 0)</h2>
+            <p class="lead">Nhập hệ số a, b, c rồi nhấn <strong>Giải phương trình</strong>. Kết quả sẽ hiển thị rõ ràng
+                và có màu theo loại nghiệm.</p>
+            <div class="form-grid">
+                <div>
+                    <label for="a">Nhập hệ số a</label>
+                    <input type="number" id="a" step="any" placeholder="Nhập a">
+                </div>
+                <div>
+                    <label for="b">Nhập hệ số b</label>
+                    <input type="number" id="b" step="any" placeholder="Nhập b">
+                </div>
+                <div>
+                    <label for="c">Nhập hệ số c</label>
+                    <input type="number" id="c" step="any" placeholder="Nhập c">
+                </div>
+            </div>
+            <div class="actions">
+                <button id="btnGiai">Giải phương trình</button>
+            </div>
+            <div id="result" class="result info">Chưa có kết quả.</div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
