@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ĐỀ 4: FORM TÍNH CHỈ SỐ BMI</title>
+</head>
+<body>
+    <h2>TÍNH CHỈ SỐ BMI</h2>
+    <form >
+        <div>
+            <label>Cân nặng (kg):</label> <br>
+            <input type="number" id="canNang" placeholder="Nhập cân nặng"> <br>
+            <p id="errorCanNang" style="color: red;"></p>
+        </div>
+        <div>
+            <label>Chiều Cao (cm):</label> <br>
+            <input type="number" id="chieuCao" placeholder="Nhập chiều cao"> <br>
+            <p id="errorChieuCao" style="color: red;"></p>
+        </div>
+        <button type="button" id="TinhBMI">Tính BMI</button>
+        <button type="button" id="Reset">Reset</button>
+    </form>
+    <div id="result" ></div>
+    <h3>Lịch sử tính BMI: </h3>
+    <ul id="history"></ul>
+    <script src="main.js"></script>
+</body>
+</html>

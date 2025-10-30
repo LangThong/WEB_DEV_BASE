@@ -26,21 +26,17 @@ function format(hs) {
 for (let motHocSinh of danhSachHocSinh) {
     const button = document.createElement("button"); // tạo 1 button
     button.textContent = format(motHocSinh);// gán nội dung cho button
-
     // thêm khoảng cách giữa các nút
     button.style.display = 'block'; // Phần tử khối, chiếm trọn 1 dòng (xuống hàng mới)
     button.style.margin = '8px 0'; // khoảnh cách bên ngoài
     button.style.padding = '6px 10px'; //khoảng trống nội dung, 1(4 cạnh đều) 2(trên/dưới trái phải), nếu 3(trên trái/phải dưới), còn 4(trên phải dưới trái)
-
     button.addEventListener("click", function (){
         buttonThongTin.textContent = format(motHocSinh);
     });
-
     document.body.appendChild(button);
 }
-
-
 const buttonThongTin = document.createElement("button");
+
 buttonThongTin.textContent = "Thông tin học sinh";
 buttonThongTin.style.display = 'block';
 buttonThongTin.style.margin = '20px 0';
@@ -48,5 +44,6 @@ buttonThongTin.style.padding = '6px 10px';
 buttonThongTin.style.backgroundColor = 'lightblue';
 buttonThongTin.style.border = '1px solid gray'; // <độ_dày> <kiểu_viền> <màu_viền>;
 document.body.appendChild(buttonThongTin);
+
 
 

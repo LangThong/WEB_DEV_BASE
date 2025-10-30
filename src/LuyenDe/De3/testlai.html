@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề 3: from đăng ký</title>
+</head>
+<body>
+    <h2>form đăng ký</h2>
+    <form id="formRegister">
+        <div>
+            <label for="name">Nhập họ và tên:</label> <br>
+            <input id="name" type="text" placeholder="Trần Thanh Thuận">
+            <p id="errorName" style="color: red;"></p>
+        </div>
+         <div>
+            <label for="email">Nhập email:</label> <br>
+            <input id="email" type="email" placeholder="example@gmail.com">
+            <p id="errorEmail" style="color: red;"></p>
+        </div>
+         <div>
+            <label for="password">Nhập password:</label> <br>
+            <input id="password" type="password" placeholder="123456">
+            <p id="errorPassword" style="color: red;"></p>
+        </div>
+        <button type="submit">Đăng ký</button>
+        <p id="success"></p>
+        <script src="testlai.js"></script>
+    </form>
+</body> 
+</html>
