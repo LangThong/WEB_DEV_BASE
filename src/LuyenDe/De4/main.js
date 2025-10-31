@@ -31,9 +31,7 @@ function kiemTraLoi (){
     const weight = Number(canNang.value);
     // console.log(typeof weight);
     const height = Number(chieuCao.value);
-
     let isValid = true;
-
     if(!canNang.value.trim()){
         errorCanNang.textContent = "Vui lòng nhập cân nặng";
         isValid = false;

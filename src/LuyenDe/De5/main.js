@@ -82,18 +82,18 @@ btnReset.addEventListener("click", function (){
 });
 
 // Khi load lại trang -> hiển thị kết quả cũ (nếu có)
-// window.addEventListener("load", () => {
-//     const duLieuCu = localStorage.getItem("Result");
-//     if(duLieuCu){
-//         //JSON.parse() để chuyển ngược lại chuỗi JSON → object
-//         const data = JSON.parse(duLieuCu);
-//         result.innerHTML = `
-//         <b>Kết quả lần trước:</b><br>
-//         - Danh Sách: [${data.numbers.join(", ")}] <br>
-//         - Tổng: ${data.sum} <br>
-//         - Trung bình: ${data.avg} <br>
-//         - Min: ${data.min} <br>
-//         - Max: ${data.max}
-//         `;
-//     }
-// });
+window.addEventListener("load", () => {
+    const duLieuCu = localStorage.getItem("Result");
+    if(duLieuCu){
+        //JSON.parse() để chuyển ngược lại chuỗi JSON → object
+        const data = JSON.parse(duLieuCu);
+        result.innerHTML = `
+        <b>Kết quả lần trước:</b><br>
+        - Danh Sách: [${data.numbers.join(", ")}] <br>
+        - Tổng: ${data.sum} <br>
+        - Trung bình: ${data.avg} <br>
+        - Min: ${data.min} <br>
+        - Max: ${data.max}
+        `;
+    }
+});

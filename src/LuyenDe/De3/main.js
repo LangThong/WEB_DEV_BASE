@@ -42,13 +42,10 @@ function validateForm(){
     const inputName = document.querySelector("#inputName");
     const inputEmail = document.querySelector("#inputEmail");
     const inputPassword = document.querySelector("#inputPassword");
-
     const errorName = document.querySelector("#errorName");
     const errorEmail = document.querySelector("#errorEmail");
     const errorPassword = document.querySelector("#errorPassword");
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-   
     let isValid = true;
     // Reset lỗi
     errorName.textContent = "";
@@ -57,28 +54,24 @@ function validateForm(){
     inputName.style.border ="";
     inputEmail.style.border ="";
     inputPassword.style.border ="";
-
     if(inputName.value.trim()  === ""){
         errorName.textContent = "Vui lòng nhập họ và tên";
         setTimeout(() => errorName.textContent = "" ,3000);
         inputName.style.border = "1px solid red";
         isValid = false;
     }
-   
     if(!emailPattern.test(inputEmail.value.trim())){
         errorEmail.textContent = "Email không hợp lệ";
         setTimeout(() => errorEmail.textContent = "" ,3000);
         inputEmail.style.border = "1px solid red";
         isValid = false;
     }
-  
     if(inputPassword.value.length < 6){
         errorPassword.textContent = "Mật khẩu ít nhất 6 ký tự";
         setTimeout(() => errorPassword.textContent = "" ,3000);
         inputPassword.style.border = "1px solid red";
         isValid = false;
     }
-    
     return  isValid;
 }
 
