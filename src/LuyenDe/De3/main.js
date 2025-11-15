@@ -14,62 +14,112 @@
             hàm_xử_lý: đoạn code bạn muốn chạy khi sự kiện xảy ra.
  */
 const formDangKy = document.querySelector("#registerForm");
+const formDangNhap = document.querySelector("#loginForm");
 const users = [];
 
+// addEventListener có những sự kiện gì
 formDangKy.addEventListener("submit", function (e){
     e.preventDefault(); // không cho reload trang
-    console.log("Form đã được submit!");
+    success.textContent = "" ;
 
-    const success = document.querySelector("#success");
-    success.textContent = "" ; // reset thông báo
-
-    if(validateForm()){
+    if(validateForm({emailElement: inputEmail, errorEmail: errorEmail }, {nameElement: inputName, errorName:errorName }, {passwordElement: inputPassword, errorPassword: errorPassword})){
+        const checkEmail = users.some(u =>u.email === inputEmail.value.trim()) // some có ít nhất một phần tử trong mảng thỏa mãn điều kiện cho trước hay không.
+        if(checkEmail){
+            errorEmail.textContent = "Email này đã được đăng ký!";
+            return; 
+        }
         const newUser = {
             name : inputName.value.trim(),
             email : inputEmail.value.trim(),
             password : inputPassword.value.trim()
         }
-        success.textContent = "Đăng ký thành công";
         users.push(newUser);
+        success.textContent = "Đăng ký thành công";
         console.log("List Users: ", users);
-        console.log("Trước khi reset:", inputName.value, inputEmail.value);
         formDangKy.reset();
-        console.log("Sau khi reset:", inputName.value, inputEmail.value);
     }
 });
 
-function validateForm(){
-    const inputName = document.querySelector("#inputName");
-    const inputEmail = document.querySelector("#inputEmail");
-    const inputPassword = document.querySelector("#inputPassword");
-    const errorName = document.querySelector("#errorName");
-    const errorEmail = document.querySelector("#errorEmail");
-    const errorPassword = document.querySelector("#errorPassword");
+formDangNhap.addEventListener("submit", function (e){
+    e.preventDefault();
+    successLogin.textContent = "" ; // reset thông báo
+    errorEmailLogin.textContent = "";
+    errorPasswordLogin.textContent = "";
+    if(validateForm({emailElement: emailLogin,errorEmail: errorEmailLogin},{}, {passwordElement: paswordLogin, errorPassword: errorPasswordLogin} )){
+        // kiểm tra email tồn tại chưa
+        const foundUser = users.find(u => u.email === emailLogin.value.trim());
+        if(!foundUser){
+            errorEmailLogin.textContent = "Email không tồn tại!";
+            emailLogin.style.border = "1px solid red";
+            setTimeout(() =>{
+                errorEmailLogin.textContent = "";
+                emailLogin.style.border = "";
+            } ,3000);
+
+            return
+        }
+        if(foundUser.password !== paswordLogin.value.trim()){
+            errorPasswordLogin.textContent = "Mật khẩu không đúng!";
+            paswordLogin.style.border = "1px solid red";
+
+            setTimeout(() => {
+                errorPasswordLogin.textContent = "";
+                paswordLogin.style.border = "";
+            }, 3000);
+
+            return;
+        }
+
+        successLogin.textContent = "Đăng nhập thành công!";
+        console.log("Đăng nhập:", foundUser);
+        formDangNhap.reset();
+    }
+
+});
+
+
+function validateForm({emailElement,errorEmail} ,{nameElement, errorName}, {passwordElement, errorPassword}){
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let isValid = true;
     // Reset lỗi
-    errorName.textContent = "";
     errorEmail.textContent = "";
+    emailElement.style.border = "";
+    if(errorName!==null && errorName!== undefined) {
+       errorName.textContent = "";
+        nameElement.style.border = "";
+    }
     errorPassword.textContent = "";
-    inputName.style.border ="";
-    inputEmail.style.border ="";
-    inputPassword.style.border ="";
-    if(inputName.value.trim()  === ""){
+    passwordElement.style.border = "";
+
+    if(errorName && nameElement) {
+        if(nameElement.value.trim()  === ""){
         errorName.textContent = "Vui lòng nhập họ và tên";
-        setTimeout(() => errorName.textContent = "" ,3000);
-        inputName.style.border = "1px solid red";
+        nameElement.style.border = "1px solid red";
+        setTimeout(()=> {
+            errorName.textContent = "";
+            nameElement.style.border = "";
+        }, 3000)
         isValid = false;
     }
-    if(!emailPattern.test(inputEmail.value.trim())){
+    }
+
+   if(!emailPattern.test(emailElement.value.trim())){
         errorEmail.textContent = "Email không hợp lệ";
-        setTimeout(() => errorEmail.textContent = "" ,3000);
-        inputEmail.style.border = "1px solid red";
+        emailElement.style.border = "1px solid red";
+        setTimeout(() =>{
+            errorEmail.textContent = "";
+            emailElement.style.border = "";
+        } ,3000);
         isValid = false;
     }
-    if(inputPassword.value.length < 6){
+
+    if(passwordElement.value.length < 6){
         errorPassword.textContent = "Mật khẩu ít nhất 6 ký tự";
-        setTimeout(() => errorPassword.textContent = "" ,3000);
-        inputPassword.style.border = "1px solid red";
+        setTimeout(() => {
+            errorPassword.textContent = "";
+            passwordElement.style.border = "";
+        } ,3000);
+        passwordElement.style.border = "1px solid red";
         isValid = false;
     }
     return  isValid;
