@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Đề 7</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Quản lý công việc</h2>
+    <label>Nhập công việc cần làm: </label> <br>
+    <input type="text" id="input" placeholder="VD: Làm bài tập">
+    <button style="color: blue;" id="btnAddJob">Thêm công việc</button>
+    <button style="color: red;" id="btnDeleteAllJob">Xóa tất cả công việc</button>
+    <button style="color: red;" id="btnDeleteAllHistory">Xóa lịch sử</button>
+    <p id="errorInput" style="color: red;"></p>
+
+    <h3>Danh sách các công việc</h3>
+    <ul id="taskList"></ul>
+
+    <h3>Lịch sử</h3>
+    <ul id="historyList"></ul>
+
+    <script src="main.js"></script>
+</body>
+</html>
