@@ -43,6 +43,54 @@
         <button type="submit">Đăng nhập</button>
         <p id="successLogin" style="color: green;"></p>
     </form>
+    <h2>Form Hiển thị mật khẩu cũ</h2>
+    <form id="forgetPasswordForm">
+        <div>
+            <label>Nhập name:</label> <br>
+            <input type="text" id="nameForget">
+            <p id="errorNameForget" style="color: red;"></p>
+
+        </div>
+        <div>
+            <label>Nhập email:</label> <br>
+            <input type="email" id="emailForget">
+            <p id="errorEmailForget" style="color: red;"></p>
+
+        </div>
+        <button type="submit">Hiển thị mật khẩu cũ</button>
+        <p id="errorForget" style="color: red;"></p>
+        <p id="successForget" style="color: green;"></p>
+    </form>
+    <h2>Form Kiểm tra email</h2>
+    <form id="checkEmailForm">
+        <div>
+            <label>Nhập email:</label> <br>
+            <input type="email" id="checkEmail">
+            <p id="errorCheckEmailInput" style="color: red;"></p>
+        </div>
+        <button type="submit">Kiểm tra Email</button>
+        <p id="errorCheckEmail" style="color: red;"></p>
+        <p id="successEmail" style="color: green;"></p>
+    </form>
+
+    <h2 id="newPasswordTitle" style="display: none;">Form Mật khẩu mới</h2>
+    <form id="passwordNewForm" style="display: none;"> 
+        <div>
+            <label>Nhập mật khẩu cũ:</label> <br>
+            <input type="password" id="passwordOld">
+            <p id="errorPasswordOld" style="color: red;"></p>
+        </div>
+        <div>
+            <label>Nhập mật khẩu mới:</label> <br>
+            <input type="password" id="passwordNew">
+            <p id="errorPasswordNew" style="color: red;"></p>
+        </div>
+
+        <button type="submit">Thay đổi mật khẩu</button>
+        <p id="errorPasswordNewForm" style="color: red;"></p>
+        <p id="successPasswordNewForm" style="color: green;"></p>
+    </form>
+
     <script src="main.js"></script>
 </body>
 </html>

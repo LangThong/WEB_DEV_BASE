@@ -15,8 +15,21 @@
  */
 const formDangKy = document.querySelector("#registerForm");
 const formDangNhap = document.querySelector("#loginForm");
-const users = [];
+const users = [
+    {
+        name: 'thuan',
+        email : "thuan@gmail.com",
+        password: "123456"
+    },
+    {
+        name: 'dat',
+        email : "dat@gmail.com",
+        password: "123456"
+    },
+];
+let saveUser = null
 
+ console.log(users)
 // addEventListener có những sự kiện gì
 formDangKy.addEventListener("submit", function (e){
     e.preventDefault(); // không cho reload trang
@@ -47,7 +60,7 @@ formDangNhap.addEventListener("submit", function (e){
     errorPasswordLogin.textContent = "";
     if(validateForm({emailElement: emailLogin,errorEmail: errorEmailLogin},{}, {passwordElement: paswordLogin, errorPassword: errorPasswordLogin} )){
         // kiểm tra email tồn tại chưa
-        const foundUser = users.find(u => u.email === emailLogin.value.trim());
+        foundUser = users.find(u => u.email == emailLogin.value.trim());
         if(!foundUser){
             errorEmailLogin.textContent = "Email không tồn tại!";
             emailLogin.style.border = "1px solid red";
@@ -76,21 +89,94 @@ formDangNhap.addEventListener("submit", function (e){
     }
 
 });
+forgetPasswordForm.addEventListener("submit", function (e){
+    e.preventDefault();
+    successForget.textContent = ""
+    errorNameForget.textContent = ""
+    errorEmailForget.textContent = ""
+    errorForget.textContent =""
+    
+    if(validateForm({ emailElement: emailForget, errorEmail: errorEmailForget }, { nameElement: nameForget, errorName: errorNameForget }, {})){
+        console.log("Đã vào đây")
+        const foundUser = users.find(u =>u.email === emailForget.value.trim() && u.name == nameForget.value.trim())
+        console.log(foundUser)
+        if(foundUser){
+           successForget.textContent = `Mật khẩu cũ của bạn là : ${foundUser.password}.`;  
+            formDangNhap.reset();
+            return
+        }else {
+            errorForget.textContent = `Vui lòng nhập đúng name và email`
+        }
+    }
 
+});
+checkEmailForm.addEventListener("submit",function (e){
+    e.preventDefault();
+    errorCheckEmailInput.textContent =""
+    errorCheckEmail.textContent =""
+    successEmail.textContent =""
 
+    if(validateForm({ emailElement: checkEmail, errorEmail: errorCheckEmailInput }, {}, {})){
+        console.log("Đã vào hàm checkEmail")
+        saveUser = users.find(u=> u.email === checkEmail.value.trim())
+        if(saveUser){
+            successEmail.textContent = `Email hợp lệ`;
+            newPasswordTitle.style.display = "block"
+            passwordNewForm.style.display = "block"
+            formDangNhap.reset();
+
+            return
+        }else {
+            errorCheckEmail.textContent = `Email không hợp lệ!`
+        }
+    }
+});
+
+passwordNewForm.addEventListener("submit",function (e){
+    e.preventDefault()
+    errorPasswordOld.textContent =""
+    errorPasswordNew.textContent = ""
+    errorPasswordNewForm.textContent =""
+    successPasswordNewForm.textContent = ""
+    if(validateForm({}, {}, { passwordElement: passwordOld, errorPassword : errorPasswordOld})
+        && validateForm({}, {}, { passwordElement: passwordNew, errorPassword : errorPasswordNew}))
+    {
+        const oldVal = passwordOld.value.trim();
+        const newVal = passwordNew.value.trim();
+        if(saveUser.password !== oldVal ){
+            errorPasswordNewForm.textContent = "Mật khẩu cũ không đúng"
+            return
+        }
+        if(oldVal === newVal){
+            errorPasswordNewForm.textContent = "Mật khẩu mới phải khác mật khẩu cũ"
+            return
+        }
+        if(newVal.length < 6){
+            errorPasswordNew.textContent = "Mật khẩu mới phải ít nhất 6 ký tự"
+            return
+        }   
+        saveUser.password = newVal
+        successPasswordNewForm.textContent = "Đổi mật khẩu mới thành công"
+        console.log("saveUser: ",saveUser)
+        passwordNewForm.reset()
+    }
+});
 function validateForm({emailElement,errorEmail} ,{nameElement, errorName}, {passwordElement, errorPassword}){
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     let isValid = true;
-    // Reset lỗi
-    errorEmail.textContent = "";
-    emailElement.style.border = "";
+    // Reset lỗi 
+    if(errorEmail !== null && errorEmail !== undefined){
+        errorEmail.textContent = "";
+        emailElement.style.border = "";
+    }
     if(errorName!==null && errorName!== undefined) {
-       errorName.textContent = "";
+        errorName.textContent = "";
         nameElement.style.border = "";
     }
-    errorPassword.textContent = "";
-    passwordElement.style.border = "";
-
+    if(errorPassword !== null && errorPassword !== undefined){
+        errorPassword.textContent = "";
+        passwordElement.style.border = "";
+    }
     if(errorName && nameElement) {
         if(nameElement.value.trim()  === ""){
         errorName.textContent = "Vui lòng nhập họ và tên";
@@ -102,8 +188,8 @@ function validateForm({emailElement,errorEmail} ,{nameElement, errorName}, {pass
         isValid = false;
     }
     }
-
-   if(!emailPattern.test(emailElement.value.trim())){
+    if(emailElement && errorEmail){
+        if(!emailPattern.test(emailElement.value.trim())){
         errorEmail.textContent = "Email không hợp lệ";
         emailElement.style.border = "1px solid red";
         setTimeout(() =>{
@@ -112,8 +198,9 @@ function validateForm({emailElement,errorEmail} ,{nameElement, errorName}, {pass
         } ,3000);
         isValid = false;
     }
-
-    if(passwordElement.value.length < 6){
+    }
+    if(passwordElement && errorPassword){
+        if(passwordElement.value.length < 6){
         errorPassword.textContent = "Mật khẩu ít nhất 6 ký tự";
         setTimeout(() => {
             errorPassword.textContent = "";
@@ -121,7 +208,10 @@ function validateForm({emailElement,errorEmail} ,{nameElement, errorName}, {pass
         } ,3000);
         passwordElement.style.border = "1px solid red";
         isValid = false;
+        }
     }
-    return  isValid;
+    return isValid;
 }
+
+
 
