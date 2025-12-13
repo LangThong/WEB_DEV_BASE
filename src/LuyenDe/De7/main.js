@@ -8,16 +8,19 @@ const btnDeleteAllHistory = document.querySelector("#btnDeleteAllHistory")
 const searchInput = document.querySelector("#search")
 const selectStaff = document.querySelector("#selectStaff")
 const selectSearch = document.querySelector("#selectSearch")
-
-
+const selectPriority = document.querySelector("#selectPriority")
+const inputDateTime = document.querySelector("#inputDateTime")
 const staffs = [
     {id: 1, name: "Thuận"},
     {id: 2, name: "Thành"},
     {id: 3, name: "Đạt"},
     {id: 4, name: "Đạt"}
-
 ]
-console.log(staffs)
+const priorities = [
+    {id: "high", value: "High"},
+    {id: "medium", value: "Medium"},
+    {id: "low", value: "Low"}
+]
 
 let tasks = JSON.parse(localStorage.getItem("TaskListJob")) || []
 let history = JSON.parse(localStorage.getItem("HistoryJob")) || []
@@ -28,7 +31,6 @@ function saveTaskListJob (){
 function saveHistoryJob (){
     localStorage.setItem("HistoryJob", JSON.stringify(history))
 }
-
 function renderListJob (list = tasks){
     // xóa nội dung cũ
     taskList.innerHTML = ""
@@ -47,9 +49,23 @@ function renderListJob (list = tasks){
 
         const spanName = document.createElement('span')
         spanName.textContent = `${i + 1}. ${task.title} `
-    
+        spanName.classList.add('task-title')
+
         const spanName2 = document.createElement('span')
         spanName2.textContent = `${task.staffName} `
+        spanName2.classList.add('task-staff')
+
+        const spanName3 = document.createElement('span')
+        spanName3.textContent = `${task.priority} `
+        spanName3.classList.add('task-priority')
+        spanName3.classList.add(task.priority.toLowerCase())
+
+        const spanThoiGianHoanThanh = document.createElement('span')
+        console.log("Tttttttttt",task.deadline,  typeof task.deadline)
+        const thoiGian = new Date(task.deadline)
+        spanThoiGianHoanThanh.textContent = thoiGian.toLocaleString()
+        spanThoiGianHoanThanh.classList.add('task-deadline')
+
         //kiểm tra hoàn thành chưa
         if(task.completed){
             spanName.classList.add('completed');
@@ -68,10 +84,12 @@ function renderListJob (list = tasks){
         });
         // xử lý khi hoàn thành
         btnComplete.addEventListener("click", () =>{
-            HoanThanh(task.id)
+            toggleComplete(task.id)
         })
         li.appendChild(spanName)
         li.appendChild(spanName2)
+        li.appendChild(spanName3)
+        li.appendChild(spanThoiGianHoanThanh)
         li.appendChild(btnComplete)
         li.appendChild(btnRemove)
         taskList.appendChild(li)
@@ -81,14 +99,25 @@ function renderListJob (list = tasks){
 btnAddJob.addEventListener('click', () => {
     const name = input.value.trim()
     const staffId = selectStaff.value
-    if(!name || ! staffId){
+    const priorityValue = selectPriority.value
+    const thoiGianHoanThanh = inputDateTime.value
+
+    if(!name || ! staffId || !priorityValue || !thoiGianHoanThanh){
         errorInput.textContent = 'Vui lòng nhập công việc và nhân viên'
         return;
     }
     errorInput.textContent = ''
     const findStaff = staffs.find(s => s.id === Number(staffId))
     const staffName = findStaff.name
-    tasks.push({id: Date.now(), title: name,staffId: Number(staffId), staffName: staffName ,  completed: false})
+    tasks.push({
+        id: Date.now(),
+        title: name,
+        staffId: Number(staffId),
+        staffName: staffName,
+        priority: priorityValue, // priority: mức độ ưu tiên
+        completed: false,
+        deadline: thoiGianHoanThanh 
+    })
     history.push({
         time: new  Date().toISOString(),
         text: `➕ Thêm công việc: tên công việc ${name}, nhân viên ${staffName}`
@@ -98,6 +127,9 @@ btnAddJob.addEventListener('click', () => {
     saveHistoryJob()
     renderHistory();
     input.value = ''
+    selectStaff.value = ""
+    selectPriority.value =""
+    inputDateTime.value = ""
 
 });
 function RemoveOneTask(id){
@@ -113,7 +145,7 @@ function RemoveOneTask(id){
     saveTaskListJob()
     saveHistoryJob()
 }
-function HoanThanh(id){
+function toggleComplete(id){
     const task = tasks.find(t => t.id === id)
     if(!task){
         return
@@ -189,11 +221,26 @@ function renderSelectStaff(){
     });
 }
 renderSelectStaff()
+function  renderSelectPriority(){
+    selectPriority.innerHTML = ""
+    const optionDefault  = document.createElement("option")
+    optionDefault.value = ""
+    optionDefault.textContent = "---Chọn độ ưu tiên---"
+    selectPriority.appendChild(optionDefault)
+
+    priorities.forEach(p =>{
+        const option = document.createElement("option")
+        option.value = p.id // high | medium | low
+        option.textContent = p.value
+        selectPriority.appendChild(option)
+    });
+}
+renderSelectPriority()
 
 function renderSelectSearch(){
     const optionSelect = document.createElement("option")
     optionSelect.value = ""
-    optionSelect.textContent = "---Chọn nhân viên tìm---"
+    optionSelect.textContent = "---Tìm theo nhân viên---"
     selectSearch.appendChild(optionSelect)
 
     staffs.forEach(s =>{
@@ -214,16 +261,20 @@ function filterTasks(){
     const keyword = searchInput.value.toLowerCase()  //.toLowerCase() để chuyển thành chữ thường → Giúp search không phân biệt chữ hoa chữ thường
     const staffId = selectSearch.value
     console.log("staffId đang chọn:", staffId)
-    let result = tasks
+    let result
     if (keyword) {
-        result = result.filter(t => // .filter() tạo ra một mảng mới gồm những phần tử thỏa điều kiện.
-            t.name.toLowerCase().includes(keyword)//includes(keyword) Kiểm tra tên task chứa keyword
+        console.log("Tasks", tasks)
+        result = tasks.filter(t => // .filter() tạo ra một mảng mới gồm những phần tử thỏa điều kiện.
+            t.title.toLowerCase().includes(keyword)//includes(keyword) Kiểm tra tên task chứa keyword
         );
+        console.log("tim result key: ",result)
     }
-    if (staffId && staffId !=="all") {
+    else result = tasks
+    if (staffId && staffId !=="all" && !!result) {
        result = result.filter(t => {
             return t.staffId === Number(staffId)
         })
+        console.log("tim result key và staffId: ",result)
     }
     console.log("Kết quả sau filter:", result)
     renderListJob(result);
