@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Registration</title>
+</head>
+<body>
+    <h2>List Registration</h2>
+    <ul id="list"></ul>
+    <button id="btnRemoveAll">Xóa tất cả</button>
+
+    <script src="storage.js"></script>
+
+    <script>
+        const list = document.getElementById("list")
+        function render(){
+            const data = getRegistrations()
+            list.innerHTML = ""
+            data.forEach(item => {
+                const li = document.createElement("li")
+                li.innerHTML = `
+                    ${item.name} - ${item.ticket}
+                    <button data-action="view" data-id="${item.id}">Xem</button>
+                    <button data-action="delete" data-id="${item.id}">Xóa</button>
+                `
+                list.appendChild(li)
+            })
+        }
+        list.addEventListener("click", e =>{
+            if(e.target.tagName !== "BUTTON") return
+            const action = e.target.dataset.action // lấy data-action trả về view hoặc delete
+            const id = Number( e.target.dataset.id) // ép từ chuỗi qua số
+            const item = getRegistrations().find( r => r.id === id) // trả về object hoặc undefined
+            if(action === "view"){
+                alert(`
+                    Họ tên: ${item.name}
+                    Email: ${item.email}
+                    SĐT: ${item.phone}
+                    Vé: ${item.ticket}
+                    Dịch vụ: ${item.services.join(", ") || "Không có"}
+                `)
+            }
+            if(action === "delete"){
+                 if (confirm(`Bạn có chắc chắn muốn xóa ${item.name}?`)) {
+                    deleteRegistration(id)
+                    render()
+                }
+            }
+        })
+        document.getElementById("btnRemoveAll").addEventListener("click", () => {
+            if(confirm("Bạn có chắc muốn xóa tất cả?")){
+                clearRegistrations()
+                render()
+            }
+        })
+        render()
+    </script>
+</body>
+</html>

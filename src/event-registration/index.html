@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Registration</title>
+</head>
+<body>
+    <div id="step-location"></div>
+    
+    <section id="step-1">
+        <h2>Step 1 - Thông tin cá nhân</h2>
+
+        <input id="name" type="text" placeholder="Họ tên">
+        <div id="error-Name"></div>
+        <input id="email" type="email" placeholder="Email">
+        <div id="error-Email"></div>
+        <input id="phone" type="text" placeholder="Số điện thoại">
+        <div id="error-Phone"></div>
+        <br>
+        <button id="btnStep1">Tiếp tục</button>
+    </section>
+    <section id="step-2" hidden>
+        <h2>Step 2  - Chọn gói tham gia</h2>
+
+        <label>
+            <input type="radio" name="ticket" value="Standard"> Standard
+        </label>
+        <label>
+            <input type="radio" name="ticket" value="VIP"> VIP
+        </label>
+        <div id="error-ticket"></div>
+
+        <label>
+            <input type="checkbox" value="havingLunch"> Ăn trưa
+        </label>
+        <label>
+            <input type="checkbox" value="wrokShop"> Wrokshop
+        </label>
+        <label>
+            <input type="checkbox" value="sendCar"> Gửi xe
+        </label>
+        <br><br>
+        <button id="btnBack2">Quay lại</button>
+        <button id="btnStep2">Tiếp tục</button>
+    </section>
+
+    <section id="step-3" hidden>
+        <h2>Step 2  - Xác nhận thông tin</h2>
+
+        <div id="confirm-info"></div>
+
+        <button id="btnBack3">Quay lại</button>
+        <button id="btnConfirm">Xác nhận đăng ký</button>
+    </section>
+
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
