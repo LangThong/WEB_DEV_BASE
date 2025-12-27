@@ -55,6 +55,7 @@ function renderStep(){
     for(let i=1; i<=3; i++){
         const stepSection = document.getElementById(`step-${i}`) 
         stepSection.hidden = i !== registerState.step
+        console.log("step",stepLocation)
     }
     renderStepLocation()
 }
