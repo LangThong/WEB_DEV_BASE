@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System</title>
+</head>
+<body>
+    <div id="stepLocation"></div>
+    <section id="step1">
+        <h2>Step-1 Chọn dịch vụ tư vấn</h2>
+        <label>
+            <input type="radio" name="service" value="technology"> Công nghệ
+        </label> <br>
+        <label>
+            <input type="radio" name="service" value="health"> Sức khỏe
+        </label> <br>
+        <label>
+            <input type="radio" name="service" value="finance"> tài chính
+        </label> <br>
+        <div id="errorService"></div>
+    </section>
+    <section id="step2" hidden>
+        <h2>Step-2 Chọn thời gian</h2>
+        <input type="date" id="date"> <br>
+        <label>
+            <input type="radio" name="timeSlot" value="morning"> Sáng (08:00 – 11:00)
+        </label> <br>
+        <label>
+            <input type="radio" name="timeSlot" value="affternoon"> Chiều (13:00 – 17:00)
+        </label> <br>
+        <label>
+            <input type="radio" name="timeSlot" value="evening"> Tối (18:00 – 21:00)
+        </label> <br>
+        <div id="errorTime"></div>
+    </section>
+    <section id="step3" hidden>
+        <h2>Step-3 Thông tin khách hàng</h2>
+        <input id="name" type="text" placeholder="Họ tên">
+        <div id="errorName"></div> <br>
+        <input id="email" type="email" placeholder="Email"> 
+        <div id="errorEmail"></div> <br>
+        <input id="phone" type="text" placeholder="Số điện thoại">
+        <div id="errorPhone"></div> <br>
+        <textarea id="note" placeholder="Ghi chú (không bắt buộc)"></textarea>
+    </section>
+    <hr>
+    <button id="back">Quay lại</button>
+    <button id="next">Tiếp tục</button>
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
