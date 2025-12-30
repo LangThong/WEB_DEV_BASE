@@ -45,13 +45,29 @@
         <button id="btnStep2">Tiếp tục</button>
     </section>
 
-  
     <section id="step-3" hidden>
-        <h2>Step 2  - Xác nhận thông tin</h2>
+        <h2>Step 3  - Lựa chọn lên xe</h2>
+        <label>
+            Bạn có lên xe hay không ?
+            <br>
+            <input type="radio" name="busTicket" value="Co"> Có
+        </label>
+        <label>
+            <input type="radio" name="busTicket" value="Khong"> Không
+        </label>
+        <div id="error-BusTicket"></div>
+        <input id="address" type="text" placeholder="Địa chỉ" hidden>
+        <div id="error-Address"></div>
+        <br><br>    
+        <button id="btnBack3">Quay lại</button>
+        <button id="btnStep3">Tiếp tục</button>
+    </section>
+    <section id="step-4" hidden>
+        <h2>Step 4  - Xác nhận thông tin</h2>
 
         <div id="confirm-info"></div>
 
-        <button id="btnBack3">Quay lại</button>
+        <button id="btnBack4">Quay lại</button>
         <button id="btnConfirm">Xác nhận đăng ký</button>
     </section>
 
