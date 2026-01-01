@@ -1,20 +1,19 @@
-const STORAGE_KEY = "booking_list"
+const storageKey = "bookingList"
 
-function getBookings() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+function getBookings(){
+  return JSON.parse(localStorage.getItem(storageKey)) || []
 }
 
-function saveBooking(booking) {
+function saveBooking(booking){
   const list = getBookings()
   list.push(booking)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
+  localStorage.setItem(storageKey, JSON.stringify(list))
 }
 
-function deleteBooking(id) {
+function deleteBooking(id){
   const list = getBookings().filter(item => item.id !== id)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
+  localStorage.setItem(storageKey, JSON.stringify(list))
 }
-
-function clearBookings() {
-  localStorage.removeItem(STORAGE_KEY)
+function clearBookings(){
+  localStorage.removeItem(storageKey)
 }
