@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management System</title>
+</head>
+<body>
+    <h2>User Management</h2>
+    <form id="userForm">
+        <div>
+            <label>Họ tên:</label> <br>
+            <input id="name" type="name">
+            <div id="errorName"></div>
+        </div>
+        <div>
+            <label>Email:</label> <br>
+            <input id="email" type="email">
+            <div id="errorEmail"></div>
+        </div>
+        <div>
+            <label>Vai trò:</label> <br>
+            <select id="role"></select>
+            <div id="errorRole"></div>
+       </div>
+       <button type="submit">Lưu</button>
+       <button type="button" id="btnCancel" hidden>Hủy</button>
+    </form>
+    <hr>
+    <ul id="userList"></ul>
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
