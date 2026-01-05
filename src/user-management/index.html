@@ -10,7 +10,7 @@
     <form id="userForm">
         <div>
             <label>Họ tên:</label> <br>
-            <input id="name" type="name">
+            <input id="name" type="text">
             <div id="errorName"></div>
         </div>
         <div>
@@ -26,6 +26,11 @@
        <button type="submit">Lưu</button>
        <button type="button" id="btnCancel" hidden>Hủy</button>
     </form>
+    <hr>
+    <input type="text" id="search" placeholder="Tìm theo email">
+    <button id="btnSortAZ">Sort (A-Z) theo tên</button>
+    <button id="btnSortZA">Sort (Z-A) theo tên</button>
+    <button id="btnClearALL">Xóa tất cả</button>
     <hr>
     <ul id="userList"></ul>
     <script src="storage.js"></script>

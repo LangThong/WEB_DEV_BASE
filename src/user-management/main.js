@@ -1,6 +1,7 @@
 const form = document.getElementById("userForm")
 const nameInput = document.getElementById("name")
 const emailInput = document.getElementById("email")
+const searchInput = document.getElementById("search")
 const roleSelect = document.getElementById("role")
 const btnCancel = document.getElementById("btnCancel")
 
@@ -17,7 +18,12 @@ const roles = [
 
 ]
 
+const btnSortAZ = document.getElementById("btnSortAZ")
+const btnSortZA = document.getElementById("btnSortZA")
+const btnClearALL = document.getElementById("btnClearALL")
+
 let users = []
+let currentList = []
 let editId = null
 
 function renderRoleOptions(){
@@ -38,16 +44,23 @@ function renderRoleOptions(){
 function init(){
     renderRoleOptions()
     users = getAllUsers()
-    renderList(users)
+    currentList = [...users]
+    renderList(currentList)
 }
 init()
 //rederList
 function renderList(list){
     userList.innerHTML = ""
-    list.forEach(user =>{
+    if(list.length === 0){
+        const li = document.createElement("li")
+        li.textContent = "Danh sách rỗng"
+        userList.appendChild(li)
+        return
+    }
+    list.forEach((user , index) =>{
         const li = document.createElement("li")
         li.innerHTML = `
-            ${user.name} |  ${user.role} | ${user.email}
+            ${index + 1} |  ${user.name} |  ${user.role} | ${user.email}
             <button data-action="edit" data-id="${user.id}">Sửa</button>
             <button data-action="delete" data-id="${user.id}">Xóa</button>
         `
@@ -72,7 +85,7 @@ function validate(){
     if(!email){
         errorEmail.textContent = "Vui lòng nhập email"
         valid = false
-    }else if(!emailInput.checkValidity()){
+    }else if(!emailInput.checkValidity()){ //dùng để kiểm tra input có thỏa các rule HTML hay không, trả về true / false
         errorEmail.textContent = "email không hợp lệ"
         valid = false
     }else if(emailExists){
@@ -81,6 +94,7 @@ function validate(){
     }
     if(!roleSelect.value){
         errorRole.textContent = "Vui lòng chọn vại trò"
+        valid = false
     }
     return valid
 
@@ -96,7 +110,7 @@ form.addEventListener("submit", function(e) {
         role: roleSelect.value
     }
     if(editId){
-        uppdateUser(user)
+        updateUser(user)
     }else {
         addUser(user)
     }
@@ -135,4 +149,38 @@ userList.addEventListener("click", function (e) {
 });
 btnCancel.addEventListener("click", function () {
   resetForm()
+})
+
+searchInput.addEventListener("input", ()=>{
+    const keyword = searchInput.value.trim().toLowerCase()
+    if(keyword === ""){
+        currentList = [...users]
+        renderList(currentList)
+        return 
+    }
+    // users.forEach(u => console.log(typeof u, u))
+    currentList = users.filter(
+        u => u.email.toLowerCase().includes(keyword)
+    )
+    renderList(currentList)
+})
+// cú pháp array.sort(compareFunction)
+btnSortAZ.addEventListener("click", ()=>{
+    currentList.sort((a,b) => {
+        return a.name.localeCompare(b.name)
+    })
+    renderList(currentList)
+})
+btnSortZA.addEventListener("click", ()=>{
+    currentList.sort((a,b) =>
+        b.name.localeCompare(a.name)
+    )
+    renderList(currentList)
+})
+btnClearALL.addEventListener("click", () =>{
+    if(confirm("Bạn có chắc muốn xóa hết không!!!")){
+        clearUsers()
+        users = []
+        renderList(users)
+    }
 })

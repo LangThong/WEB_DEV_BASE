@@ -10,7 +10,7 @@ function  addUser(user){
     users.push(user)
     saveUsers(users)
 }
-function uppdateUser(user){
+function updateUser(user){
     const users = getAllUsers().map(
         u => u.id === user.id ? user : u
     )
